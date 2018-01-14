@@ -4,30 +4,20 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DiscordModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Discord.dbo.Points' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+    <Schema Namespace="DiscordModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Points">
           <Key>
-            <PropertyRef Name="Id" />
             <PropertyRef Name="Username" />
-            <PropertyRef Name="Points" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Points" Type="int" Nullable="false" />
+          <Property Name="DailyScore" Type="int" />
         </EntityType>
         <EntityContainer Name="DiscordModelStoreContainer">
-          <EntitySet Name="Points" EntityType="Self.Points" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Points].[Id] AS [Id], 
-    [Points].[Username] AS [Username], 
-    [Points].[Points] AS [Points]
-    FROM [dbo].[Points] AS [Points]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DiscordModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -40,6 +30,7 @@ warning 6002: The table/view 'Discord.dbo.Points' does not have a primary key de
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="DailyScore" Type="Int32" />
         </EntityType>
         <EntityContainer Name="DiscordEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Points" EntityType="Self.Point" />
@@ -53,6 +44,7 @@ warning 6002: The table/view 'Discord.dbo.Points' does not have a primary key de
           <EntitySetMapping Name="Points">
             <EntityTypeMapping TypeName="DiscordModel.Point">
               <MappingFragment StoreEntitySet="Points">
+                <ScalarProperty Name="DailyScore" ColumnName="DailyScore" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Points" ColumnName="Points" />

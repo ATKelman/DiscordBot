@@ -17,5 +17,6 @@ namespace DatabaseManager
         public int Id { get; set; }
         public string Username { get; set; }
         public int Points { get; set; }
+        public Nullable<int> DailyScore { get; set; }
     }
 }
