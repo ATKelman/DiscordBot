@@ -12,11 +12,11 @@ namespace DatabaseManager
     using System;
     using System.Collections.Generic;
     
-    public partial class Point
+    public partial class Reminder
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public int Points { get; set; }
-        public Nullable<int> DailyScore { get; set; }
+        public System.DateTime ReminderDate { get; set; }
+        public string Message { get; set; }
     }
 }

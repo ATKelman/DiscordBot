@@ -13,10 +13,10 @@ namespace DatabaseManager
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DiscordEntities : DbContext
+    public partial class DiscordBotEntities : DbContext
     {
-        public DiscordEntities()
-            : base("name=DiscordEntities")
+        public DiscordBotEntities()
+            : base("name=DiscordBotEntities")
         {
         }
     
@@ -25,6 +25,6 @@ namespace DatabaseManager
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Point> Points { get; set; }
+        public virtual DbSet<Reminder> Reminders { get; set; }
     }
 }
