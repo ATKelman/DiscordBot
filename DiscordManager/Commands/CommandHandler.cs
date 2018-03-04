@@ -2,6 +2,9 @@
 using System.Reflection;
 using Discord.Commands;
 using Discord.WebSocket;
+using System.Timers;
+using System;
+using System.Linq;
 
 namespace DiscordManager
 {
@@ -9,6 +12,7 @@ namespace DiscordManager
     {
         private static CommandService _cmds;
         private DiscordSocketClient _client;
+        private Timer timer;
 
         public async Task Install(DiscordSocketClient c)
         {
@@ -34,11 +38,43 @@ namespace DiscordManager
 
                 if (!result.IsSuccess) await context.Channel.SendMessageAsync(result.ErrorReason.ToString());
             }
+
+            StartTimer();
         }
 
         public static CommandService GetCommandService()
         {
             return _cmds;
+        }
+
+        private void StartTimer()
+        {
+            timer = new Timer
+            {
+                Interval = 20000
+            };
+            timer.Elapsed += CheckReminders;
+
+            timer.Enabled = true;
+        }
+
+        private async void CheckReminders(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            var reminders = DiscordManager.Commands.Command_Reminder.GetElapsedReminders();
+            if(reminders.Any())
+            {
+                foreach(var reminder in reminders)
+                {
+                    await HandleReminder(reminder);
+                }
+            }
+        }
+
+        private async Task HandleReminder(DiscordManager.Database.Reminder reminder)
+        {
+            var channel = _client.GetChannel(Convert.ToUInt64(reminder.Channel)) as ISocketMessageChannel;
+            var msg = string.Format("{0} {1}", reminder.Username, reminder.Message);
+            await channel.SendMessageAsync(msg);
         }
 
         //private static IEnumerable<char> GetCharsInRange(string text, int min, int max)
