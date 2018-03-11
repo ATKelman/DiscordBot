@@ -5,6 +5,8 @@ using Discord.WebSocket;
 using System.Timers;
 using System;
 using System.Linq;
+using DiscordManager.Database;
+using System.Threading;
 
 namespace DiscordManager
 {
@@ -12,7 +14,7 @@ namespace DiscordManager
     {
         private static CommandService _cmds;
         private DiscordSocketClient _client;
-        private Timer timer;
+        private System.Timers.Timer timer;
 
         public async Task Install(DiscordSocketClient c)
         {
@@ -22,6 +24,7 @@ namespace DiscordManager
             await _cmds.AddModulesAsync(Assembly.GetEntryAssembly());
 
             _client.MessageReceived += HandleCommand;
+            StartTimer();
         }
 
         public async Task HandleCommand(SocketMessage e)
@@ -38,8 +41,6 @@ namespace DiscordManager
 
                 if (!result.IsSuccess) await context.Channel.SendMessageAsync(result.ErrorReason.ToString());
             }
-
-            StartTimer();
         }
 
         public static CommandService GetCommandService()
@@ -49,7 +50,7 @@ namespace DiscordManager
 
         private void StartTimer()
         {
-            timer = new Timer
+            timer = new System.Timers.Timer
             {
                 Interval = 20000
             };
@@ -60,14 +61,7 @@ namespace DiscordManager
 
         private async void CheckReminders(Object source, System.Timers.ElapsedEventArgs e)
         {
-            var reminders = DiscordManager.Commands.Command_Reminder.GetElapsedReminders();
-            if(reminders.Any())
-            {
-                foreach(var reminder in reminders)
-                {
-                    await HandleReminder(reminder);
-                }
-            }
+            await DiscordManager.Commands.Command_Reminder.HandleRemindersAsync(_client);
         }
 
         private async Task HandleReminder(DiscordManager.Database.Reminder reminder)
