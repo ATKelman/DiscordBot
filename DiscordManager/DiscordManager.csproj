@@ -111,6 +111,7 @@
     <Compile Include="Database\Reminder.cs">
       <DependentUpon>DiscordDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\ReminderHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
