@@ -19,6 +19,6 @@ namespace DiscordManager.Database
         public System.DateTime ReminderDate { get; set; }
         public string Message { get; set; }
         public string Channel { get; set; }
-        public Nullable<int> Status { get; set; }
+        public int Status { get; set; }
     }
 }
