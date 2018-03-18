@@ -32,7 +32,7 @@ namespace DiscordManager.Handlers
 
         private async void CheckReminders(Object source, System.Timers.ElapsedEventArgs e)
         {
-            await DiscordManager.Commands.Command_Reminder.HandleRemindersAsync(_client);
+            await Commands.Command_Reminder.HandleRemindersAsync(_client);
         }
 
         private async Task HandleReminder(DiscordManager.Database.Reminder reminder)
