@@ -21,18 +21,21 @@ namespace DiscordManager
         public async Task Start()
         {
             _client = new DiscordSocketClient();
-            _commands = new CommandHandler();
-            _reminder = new ReminderHandler();
 
             await _client.LoginAsync(TokenType.Bot, ConfigurationManager.AppSettings["Token"]);
-            //await _client.LoginAsync(TokenType.Bot, "MzE5ODk1ODM2ODM2MzY0Mjk5.DBHluw.CckE04fI_3xLwlu0SPzXDKlPHAQ");
             await _client.StartAsync();
 
             _client.Log += Log;
 
-            _reminder.Install(_client);
-            await _commands.Install(_client);
+            InitializeHandlers(_client);
             await Task.Delay(-1);
+        }
+
+        private void InitializeHandlers(DiscordSocketClient c)
+        {
+            _commands = new CommandHandler(c);
+            _reminder = new ReminderHandler(c);
+
         }
 
         private Task Log(LogMessage msg)

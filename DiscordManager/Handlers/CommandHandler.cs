@@ -2,21 +2,19 @@
 using System.Reflection;
 using Discord.Commands;
 using Discord.WebSocket;
-using System.Timers;
-using System;
-using System.Linq;
-using DiscordManager.Database;
-using System.Threading;
 
-namespace DiscordManager
+namespace DiscordManager.Handlers
 {
-    class CommandHandler
+    public class CommandHandler : HandlerBase
     {
         private static CommandService _cmds;
-        private DiscordSocketClient _client;
-        //private System.Timers.Timer timer;
 
-        public async Task Install(DiscordSocketClient c)
+        public CommandHandler(DiscordSocketClient c)
+            : base(c)
+        {
+        }
+
+        public override async Task Install(DiscordSocketClient c)
         {
             _client = c;
             _cmds = new CommandService();
@@ -24,7 +22,6 @@ namespace DiscordManager
             await _cmds.AddModulesAsync(Assembly.GetEntryAssembly());
 
             _client.MessageReceived += HandleCommand;
-            //StartTimer();
         }
 
         public async Task HandleCommand(SocketMessage e)
@@ -47,29 +44,6 @@ namespace DiscordManager
         {
             return _cmds;
         }
-
-        //private void StartTimer()
-        //{
-        //    timer = new System.Timers.Timer
-        //    {
-        //        Interval = 20000
-        //    };
-        //    timer.Elapsed += CheckReminders;
-
-        //    timer.Enabled = true;
-        //}
-
-        //private async void CheckReminders(Object source, System.Timers.ElapsedEventArgs e)
-        //{
-        //    await DiscordManager.Commands.Command_Reminder.HandleRemindersAsync(_client);
-        //}
-
-        //private async Task HandleReminder(DiscordManager.Database.Reminder reminder)
-        //{
-        //    var channel = _client.GetChannel(Convert.ToUInt64(reminder.Channel)) as ISocketMessageChannel;
-        //    var msg = string.Format("{0} {1}", reminder.Username, reminder.Message);
-        //    await channel.SendMessageAsync(msg);
-        //}
 
         //private static IEnumerable<char> GetCharsInRange(string text, int min, int max)
         //{

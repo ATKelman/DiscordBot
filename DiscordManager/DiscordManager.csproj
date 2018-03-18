@@ -91,7 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Handlers\CommandHandler.cs" />
     <Compile Include="Commands\Command_Reminder.cs" />
     <Compile Include="Database\DiscordDB.Context.cs">
       <AutoGen>True</AutoGen>
@@ -111,7 +111,9 @@
     <Compile Include="Database\Reminder.cs">
       <DependentUpon>DiscordDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\HandlerBase.cs" />
     <Compile Include="Handlers\ReminderHandler.cs" />
+    <Compile Include="Interfaces\IHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,21 +1,19 @@
 ﻿using System.Threading.Tasks;
-using System.Reflection;
-using Discord.Commands;
 using Discord.WebSocket;
-using System.Timers;
 using System;
-using System.Linq;
-using DiscordManager.Database;
-using System.Threading;
 
 namespace DiscordManager.Handlers
 {
-    class ReminderHandler
+    public class ReminderHandler : HandlerBase
     {
-        private DiscordSocketClient _client;
         private System.Timers.Timer timer;
 
-        public void Install(DiscordSocketClient c)
+        public ReminderHandler(DiscordSocketClient c)
+            : base(c)
+        {
+        }
+
+        public override async Task Install(DiscordSocketClient c)
         {
             _client = c;
             StartTimer();
