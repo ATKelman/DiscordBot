@@ -167,14 +167,22 @@ namespace DiscordManager.Commands
             using (var db = new DiscordBotEntities())
             {
                 var dtNow = DateTime.Now;
-                var elapsedReminders = db.Reminders.Where(x => x.ReminderDate < dtNow && x.Status == 10).ToList();
+                var elapsedReminders = db.Reminders.Where(x => x.ReminderDate < dtNow && (x.Status == 10 || x.Status == 20)).ToList();
 
                 if (elapsedReminders.Any())
                 {
                     foreach (var reminder in elapsedReminders)
                     {
+                        if(reminder.Status == 10)
+                        {           
+                            reminder.Status = 100;
+                        }
+                        else if(reminder.Status == 20)
+                        {
+                            reminder.ReminderDate = reminder.ReminderDate.AddDays(1);
+                        }
+
                         await SendReminder(reminder, _client);
-                        reminder.Status = 100;                
                     }
                 }
                 db.SaveChanges();
