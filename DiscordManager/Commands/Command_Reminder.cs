@@ -189,19 +189,18 @@ namespace DiscordManager.Commands
             }
         }
 
-        public static List<Reminder> GetElapsedReminders(DiscordBotEntities db)
-        {
-            var dtNow = DateTime.Now;
-
-            var elapsedReminders = db.Reminders.Where(x => x.ReminderDate < dtNow).ToList();
-            return elapsedReminders;
-        }
-
         private static async Task SendReminder(Reminder reminder, DiscordSocketClient _client)
         {
-            var channel = _client.GetChannel(Convert.ToUInt64(reminder.Channel)) as ISocketMessageChannel;
-            var msg = string.Format("{0} {1}", reminder.Username, reminder.Message);
-            await channel.SendMessageAsync(msg);
+            try
+            {
+                var channel = _client.GetChannel(Convert.ToUInt64(reminder.Channel)) as ISocketMessageChannel;
+                var msg = string.Format("{0} {1}", reminder.Username, reminder.Message);
+                await channel.SendMessageAsync(msg);
+            }
+            catch
+            {
+                Console.WriteLine("Unable to retrieve channel");
+            }
         }
     }
 }

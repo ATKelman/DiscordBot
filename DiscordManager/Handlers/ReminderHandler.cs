@@ -32,6 +32,7 @@ namespace DiscordManager.Handlers
 
         private async void CheckReminders(Object source, System.Timers.ElapsedEventArgs e)
         {
+            timer.Start();
             await Commands.Command_Reminder.HandleRemindersAsync(_client);
         }
 
