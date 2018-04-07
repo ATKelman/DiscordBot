@@ -1,13 +1,20 @@
-﻿using Discord;
-using Discord.Commands;
-using RedditSharp;
+﻿using RedditSharp;
 using RedditSharp.Things;
 using System.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DiscordManager.Commands
+namespace RedditManager
 {
-    public class RedditCommand : ModuleBase
+    public class RedditHandler
     {
+        public RedditHandler()
+        {
+            Login();
+        }
 
         private void Login()
         {
@@ -17,9 +24,11 @@ namespace DiscordManager.Commands
             reddit.InitOrUpdateUserAsync();
             authenticated = reddit.User != null;
             //Subreddit sub = null;
-            if(!authenticated)
+            if (!authenticated)
             {
-                var sub = reddit.GetSubredditAsync("");
+                var sub = reddit.GetSubredditAsync("anime");
+
+                //var threads = 
             }
         }
     }
