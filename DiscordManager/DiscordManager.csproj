@@ -93,6 +93,10 @@
   <ItemGroup>
     <Compile Include="Commands\GeneralCommand.cs" />
     <Compile Include="Commands\RedditCommand.cs" />
+    <Compile Include="Commands\StatusCommand.cs" />
+    <Compile Include="Database\UserStatu.cs">
+      <DependentUpon>DiscordDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Handlers\CommandHandler.cs" />
     <Compile Include="Commands\Command_Reminder.cs" />
     <Compile Include="Database\DiscordDB.Context.cs">

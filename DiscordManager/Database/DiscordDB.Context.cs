@@ -26,5 +26,6 @@ namespace DiscordManager.Database
         }
     
         public virtual DbSet<Reminder> Reminders { get; set; }
+        public virtual DbSet<UserStatu> UserStatus { get; set; }
     }
 }

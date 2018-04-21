@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e36d78446b554a52905a1b2291ab3d27" Name="Diagram1">
         <EntityTypeShape EntityType="DiscordBotModel.Reminder" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiscordBotModel.UserStatu" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
