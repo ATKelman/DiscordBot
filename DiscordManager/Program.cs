@@ -17,6 +17,7 @@ namespace DiscordManager
         private DiscordSocketClient _client;
         private CommandHandler _commands;
         private ReminderHandler _reminder;
+        private MentionHandler _mention;
 
         public async Task Start()
         {
@@ -35,7 +36,7 @@ namespace DiscordManager
         {
             _commands = new CommandHandler(c);
             _reminder = new ReminderHandler(c);
-
+            _mention = new MentionHandler(c);
         }
 
         private Task Log(LogMessage msg)

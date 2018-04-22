@@ -118,6 +118,7 @@
       <DependentUpon>DiscordDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Handlers\HandlerBase.cs" />
+    <Compile Include="Handlers\MentionHandler.cs" />
     <Compile Include="Handlers\ReminderHandler.cs" />
     <Compile Include="Interfaces\IHandler.cs" />
     <Compile Include="Program.cs" />

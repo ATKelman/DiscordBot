@@ -22,7 +22,7 @@ namespace DiscordManager.Handlers
             _cmds = new CommandService();
 
             _client.MessageReceived += HandleCommand;
-            _client.MessageReceived += HandleMention;
+            //_client.MessageReceived += HandleMention;
 
             await _cmds.AddModulesAsync(Assembly.GetEntryAssembly());
 
@@ -33,8 +33,8 @@ namespace DiscordManager.Handlers
         {
             SocketUserMessage msg = e as SocketUserMessage;
             if (msg == null) return;
-
             CommandContext context = new CommandContext(_client, msg);
+            if (IsBot(context)) return; 
 
             int argPos = 0;
             if (msg.HasStringPrefix("!", ref argPos))
@@ -45,32 +45,7 @@ namespace DiscordManager.Handlers
             }
         }
 
-        public async Task HandleMention(SocketMessage e)
-        {
-            SocketUserMessage msg = e as SocketUserMessage;
-            if (msg == null) return;
-            CommandContext context = new CommandContext(_client, msg);
 
-            var users = msg.MentionedUsers;
-            if(users.Count > 0)
-            {
-                foreach(var user in users)
-                {
-                    using (var db = new DiscordBotEntities())
-                    {
-                        var status = db.UserStatus.Where(x => x.User == user.Mention).Select(x => x.Status).SingleOrDefault();
-                        if(status != null)
-                        {
-                            if(!status.ToLower().Equals("none"))
-                            {
-                                var message = string.Format("{0} is currently {1}", user.Username, status);
-                                await context.Channel.SendMessageAsync(message);
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         public static CommandService GetCommandService()
         {
