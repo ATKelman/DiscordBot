@@ -18,6 +18,7 @@ namespace DiscordManager
         private CommandHandler _commands;
         private ReminderHandler _reminder;
         private MentionHandler _mention;
+        private ReactionHandler _reaction;
 
         public async Task Start()
         {
@@ -37,6 +38,7 @@ namespace DiscordManager
             _commands = new CommandHandler(c);
             _reminder = new ReminderHandler(c);
             _mention = new MentionHandler(c);
+            _reaction = new ReactionHandler(c);
         }
 
         private Task Log(LogMessage msg)

@@ -91,7 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Poll.cs" />
     <Compile Include="Commands\GeneralCommand.cs" />
+    <Compile Include="Commands\PollingCommand.cs" />
     <Compile Include="Commands\RedditCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />
     <Compile Include="Database\UserStatu.cs">
@@ -119,6 +121,7 @@
     </Compile>
     <Compile Include="Handlers\HandlerBase.cs" />
     <Compile Include="Handlers\MentionHandler.cs" />
+    <Compile Include="Handlers\ReactionHandler.cs" />
     <Compile Include="Handlers\ReminderHandler.cs" />
     <Compile Include="Interfaces\IHandler.cs" />
     <Compile Include="Program.cs" />
@@ -150,5 +153,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
